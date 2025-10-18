@@ -91,19 +91,16 @@ async def show_all(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(f"📊 لیست نمرات:\n\n{text}")
 
 
-# --- راه‌اندازی بات ---
-async def main():
+if __name__ == "__main__":
+    from telegram.ext import ApplicationBuilder
+
     app = ApplicationBuilder().token(TOKEN).build()
 
+    # اضافه کردن هاندلرها
     app.add_handler(CommandHandler("start", start))
     app.add_handler(CommandHandler("all", show_all))
     app.add_handler(MessageHandler(filters.Document.ALL, handle_excel))
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
 
     print("Bot is running...")
-    await app.run_polling()
-
-
-if __name__ == "__main__":
-    import asyncio
-    asyncio.run(main())
+    app.run_polling()  # ← مستقیم اینو صدا بزن
