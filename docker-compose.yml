@@ -1,0 +1,11 @@
+version: "3.8"
+
+services:
+  telegram-bot:
+    build: .
+    container_name: telegram-score-bot
+    restart: always  # بعد از ری‌استارت سرور خودکار بالا میاد
+    volumes:
+      - ./data:/app/data  # مسیر ذخیره داده‌ها در بیرون کانتینر
+    environment:
+      - PYTHONUNBUFFERED=1  # برای دیدن لاگ‌ها در لحظه
